@@ -1,7 +1,20 @@
 #!/bin/sh
 # Run keep-cli from a checkout without installing it.
-# Prefers a local .venv, then whatever python3 is on PATH.
-here=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+#
+# Resolves symlinks first, so this works when linked onto your PATH:
+#     ln -s /path/to/keep-cli/keep ~/bin/keep
+# Prefers the repo's own .venv, then whatever python3 is on PATH.
+
+target=$0
+while [ -L "$target" ]; do
+    link=$(readlink "$target")
+    case $link in
+        /*) target=$link ;;
+        *)  target=$(dirname -- "$target")/$link ;;
+    esac
+done
+here=$(CDPATH= cd -- "$(dirname -- "$target")" && pwd)
+
 if [ -x "$here/.venv/bin/python" ]; then
     exec "$here/.venv/bin/python" -m keepcli "$@"
 fi

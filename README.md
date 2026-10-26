@@ -24,8 +24,17 @@ python3 -m venv .venv                 # Python 3.10 or newer
 ./keep labels
 ```
 
-`./keep` runs from a checkout without installing anything globally. If you'd
-rather have `keep` on your PATH, `pip install .` gives you that.
+`./keep` runs from a checkout without installing anything globally.
+
+To get `keep` on your PATH, either `pip install .` (which installs a `keep`
+entry point), or symlink the wrapper:
+
+```bash
+ln -s "$PWD/keep" ~/bin/keep      # or anywhere on your PATH
+```
+
+The wrapper resolves symlinks, so it still finds the repo's `.venv` when
+invoked through a link from elsewhere.
 
 ---
 
