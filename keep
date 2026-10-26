@@ -1,0 +1,8 @@
+#!/bin/sh
+# Run keep-cli from a checkout without installing it.
+# Prefers a local .venv, then whatever python3 is on PATH.
+here=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+if [ -x "$here/.venv/bin/python" ]; then
+    exec "$here/.venv/bin/python" -m keepcli "$@"
+fi
+PYTHONPATH="$here${PYTHONPATH:+:$PYTHONPATH}" exec python3 -m keepcli "$@"

@@ -1,0 +1,32 @@
+# --- your own content, not part of the tool -----------------------------
+/library/
+/_migrate/
+
+# --- anything that could hold a credential ------------------------------
+# The Keep master token is FULL ACCESS to a Google account. It must never
+# be committed. keep-cli refuses to write it inside a git repo, but these
+# patterns are a second line of defence.
+token
+token-*
+*.token
+.env
+.env.*
+device_id.txt
+state.json
+keepcache.json
+*-master-token*
+
+# --- python -------------------------------------------------------------
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# --- editors / os -------------------------------------------------------
+.DS_Store
+.idea/
+.vscode/
